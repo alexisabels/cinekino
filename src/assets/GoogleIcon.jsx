@@ -1,5 +1,3 @@
-// src/components/GoogleIcon.jsx
-
 const GoogleIcon = () => (
   <svg
     width="20"

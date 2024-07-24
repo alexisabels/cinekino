@@ -1,12 +1,8 @@
-// src/App.jsx
-import Navbar from "./components/Navbar";
-import Routes from "../routes";
-
+import Rutas from "../routes";
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Routes />
+    <div className="bg-gray-900 text-white min-h-screen">
+      <Rutas />
     </div>
   );
 }
