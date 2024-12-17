@@ -5,14 +5,14 @@ import { useAuth } from "../services/AuthProvider";
 
 const Navbar = () => {
   const { user } = useAuth();
-  const [isOpen, setIsOpen] = useState(false); // Para manejar el estado del menú
+  const [isOpen, setIsOpen] = useState(false); 
 
-  const toggleMenu = () => setIsOpen(!isOpen); // Función para alternar el menú
+  const toggleMenu = () => setIsOpen(!isOpen); 
 
   return (
     <nav className="bg-gray-800 p-4 sticky top-0 z-10 w-full">
       <div className="container mx-auto flex justify-between items-center h-16">
-        {/* Logo y enlaces para escritorio */}
+      
         <div className="flex space-x-10">
           <a
             href="/"
@@ -34,7 +34,6 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Menú de usuario y botón de inicio de sesión */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-3">
@@ -52,7 +51,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Menú hamburguesa para móviles */}
+     
         <div className="md:hidden flex items-center">
           <button onClick={toggleMenu} className="text-white">
             <svg
@@ -73,7 +72,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Menú desplegable para móviles */}
       {isOpen && (
         <div className="md:hidden bg-gray-800 text-white p-4">
           <a

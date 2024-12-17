@@ -19,7 +19,7 @@ export const getPopularMovies = async () => {
 };
 export const fetchMovieDetails = async (id) => {
   try {
-    const response = await axios.get(`${BASE_URL}/movie/${id}`, {
+    const response = await axios.get(`${BASE_URL}/movie/${id}?append_to_response=credits`, {
       params: {
         api_key: API_KEY,
         language: "es-ES",

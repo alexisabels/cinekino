@@ -63,47 +63,59 @@ const MovieDetails = () => {
 
   return (
     <div className="relative mt-7 flex flex-col lg:flex-row items-center lg:items-start lg:justify-evenly gap-8 p-4">
-    {/* Contenido principal */}
-    {/* Imagen del póster */}
-    <div className="relative flex-shrink-0 max-w-xs lg:max-w-md">
-      <img
-        className="w-full rounded-lg shadow-xl"
-        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-        alt={movie.title}
-      />
-    </div>
-    <div className="relative  lg:max-w-lg flex flex-col gap-6 bg-slate-100 bg-opacity-90 rounded-lg shadow-xl p-6">
-      <h2 className="text-4xl text-slate-900 font-extrabold tracking-tight md:text-5xl lg:text-4xl mb-4">
-        {movie.title}
-      </h2>
-      <p className="text-lg text-gray-700 mb-4">{movie.overview}</p>
-  
-      {/* Géneros en chips */}
-      <div className="flex gap-3 flex-wrap mb-4">
-        {movie.genres.map((genre) => (
-          <div key={genre.id} className="rounded-md bg-slate-800 py-1 px-4 border border-transparent text-sm text-white transition-all shadow-sm">
-            {genre.name}
-          </div>
-        ))}
+      <div className="relative flex-shrink-0 max-w-xs lg:max-w-md transform hover:scale-105 transition duration-300">
+        <img
+          className="w-full rounded-lg shadow-xl "
+          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          alt={movie.title}
+        />
       </div>
-  
-      <p className="text-gray-700 mb-4">País: {movie.origin_country}</p>
-  {auth.currentUser ?  <button
-        onClick={isWatched ? handleMarkAsUnWatched : handleMarkAsWatched}
-        className={`mt-4 px-6 py-3 rounded-md ${isWatched ? "bg-gray-500 hover:bg-gray-600" : "bg-blue-500 hover:bg-blue-600"} text-white text-lg transition duration-300`}
-      >
-        {isWatched ? "Vista" : "Marcar como vista"}
-      </button> : <button
-        className={`mt-4 px-6 py-3 rounded-md bg-gray-500 hover:bg-gray-600 text-white text-lg transition duration-300`}
-      >
- <Link to="/auth">
-      Inicia sesión para marcarla como vista
-    </Link>      </button>}
-     
+      <div className="relative transform hover:scale-105 transition duration-300 lg:max-w-lg flex flex-col gap-6 bg-slate-100 bg-opacity-90 rounded-lg shadow-xl ">
+        <img
+        className="hidden md:block"
+          src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+          alt={movie.title}
+        />
+        <div className="p-6">
+          <h2 className="text-4xl text-slate-900 font-extrabold tracking-tight md:text-5xl lg:text-4xl mb-4">
+            {movie.title}
+          </h2>
+          <p className="text-lg text-gray-700 mb-4">{movie.overview}</p>
+
+          <div className="flex gap-3 flex-wrap mb-4">
+            {movie.genres.map((genre) => (
+              <div
+                key={genre.id}
+                className="rounded-md bg-slate-800 py-1 px-4 border border-transparent text-sm text-white transition-all shadow-sm"
+              >
+                {genre.name}
+              </div>
+            ))}
+          </div>
+
+          <p className="text-gray-700 mb-4">País: {movie.origin_country}</p>
+          {auth.currentUser ? (
+            <button
+              onClick={isWatched ? handleMarkAsUnWatched : handleMarkAsWatched}
+              className={`mt-4 px-6 py-3 rounded-md ${
+                isWatched
+                  ? "bg-gray-500 hover:bg-gray-600"
+                  : "bg-blue-500 hover:bg-blue-600"
+              } text-white text-lg transition duration-300`}
+            >
+              {isWatched ? "Vista" : "Marcar como vista"}
+            </button>
+          ) : (
+            <button
+              className={`mt-4 px-6 py-3 rounded-md bg-gray-500 hover:bg-gray-600 text-white text-lg transition duration-300`}
+            >
+              <Link to="/auth">Inicia sesión para marcarla como vista</Link>{" "}
+            </button>
+          )}
+        </div>
+      </div>
     </div>
-  </div>
-  );  
-  
+  );
 };
 
 export default MovieDetails;
