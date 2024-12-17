@@ -17,3 +17,17 @@ export const getPopularMovies = async () => {
     return [];
   }
 };
+export const fetchMovieDetails = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/movie/${id}`, {
+      params: {
+        api_key: API_KEY,
+        language: "es-ES",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener detalles de la película:", error);
+    throw error;
+  }
+};
