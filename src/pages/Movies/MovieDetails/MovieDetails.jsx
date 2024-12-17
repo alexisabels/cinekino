@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { auth } from "../../../../firebaseConfig";
 import { fetchMovieDetails } from "../../../services/tmdbService";
 import {
@@ -94,11 +94,11 @@ const MovieDetails = () => {
       >
         {isWatched ? "Vista" : "Marcar como vista"}
       </button> : <button
-        onClick={isWatched ? handleMarkAsUnWatched : handleMarkAsWatched}
         className={`mt-4 px-6 py-3 rounded-md bg-gray-500 hover:bg-gray-600 text-white text-lg transition duration-300`}
       >
-        Inicia sesión para marcarla como vista
-      </button>}
+ <Link to="/auth">
+      Inicia sesión para marcarla como vista
+    </Link>      </button>}
      
     </div>
   </div>
