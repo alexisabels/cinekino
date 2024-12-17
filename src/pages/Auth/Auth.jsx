@@ -76,13 +76,13 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col items-center mt-28 bg-gray-900 text-white">
       <h2 className="text-2xl font-bold mb-4">
         {isLogin ? "Iniciar sesión" : "Registrarse"}
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-800 p-6 rounded shadow-md w-full max-w-sm"
+        className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-sm"
       >
         {!isLogin && (
           <div className="mb-4">
