@@ -31,3 +31,16 @@ export const fetchMovieDetails = async (id) => {
     throw error;
   }
 };
+export const fetchMovieMedia = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/movie/${id}/images`, {
+      params: {
+        api_key: API_KEY,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener images de la película:", error);
+    throw error;
+  }
+};
