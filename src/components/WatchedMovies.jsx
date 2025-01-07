@@ -3,6 +3,7 @@ import { db } from "../../firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "../services/AuthProvider";
 import MovieList from "./MovieList";
+import Spinner from "./Spinner";
 
 const WatchedMovies = () => {
   const { user } = useAuth();
@@ -35,7 +36,7 @@ const WatchedMovies = () => {
   }, [user]);
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return <Spinner />;
   }
 
   return (

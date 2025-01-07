@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../../firebaseConfig";
+import Spinner from "../components/Spinner";
 
 const AuthContext = createContext();
 
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, loading }}>
-      {loading ? <div>Cargando...</div> : children}
+      {loading ? <Spinner /> : children}
     </AuthContext.Provider>
   );
 };

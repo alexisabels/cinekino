@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { auth } from "../../../../firebaseConfig";
-import { fetchMovieDetails, fetchMovieMedia } from "../../../services/tmdbService";
+import {
+  fetchMovieDetails,
+  fetchMovieMedia,
+} from "../../../services/tmdbService";
 import {
   checkIfMovieWatched,
   markMovieAsUnWatched,
@@ -9,6 +12,7 @@ import {
 } from "../../../services/movieFirebase";
 import Cast from "./Cast";
 import ImageSlider from "../../../components/ImageSlider";
+import Spinner from "../../../components/Spinner";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -64,7 +68,7 @@ const MovieDetails = () => {
     }
   };
 
-  if (!movie) return <div>Cargando...</div>;
+  if (!movie) return <Spinner />;
   const releaseDate = movie.release_date;
   const year = releaseDate.split("-")[0];
   return (
@@ -132,7 +136,7 @@ const MovieDetails = () => {
       </div>
       <Cast cast={movie.credits.cast} />
       <ImageSlider images={movieMedia?.backdrops || []} />
-      </div>
+    </div>
   );
 };
 
