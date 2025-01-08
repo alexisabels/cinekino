@@ -7,6 +7,7 @@ import Home from "./src/pages/Home/Home";
 import MovieDetails from "./src/pages/Movies/MovieDetails/MovieDetails";
 import Navbar from "./src/components/Navbar";
 import Profile from "./src/pages/MyProfile/Profile";
+import User from "./src/pages/u/User";
 import { AuthProvider } from "./src/services/AuthProvider";
 
 const Rutas = () => {
@@ -22,6 +23,7 @@ const Rutas = () => {
             <Route path="/people" element={<People />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/u/:username" element={<User />} />
           </Routes>
         </div>
       </Router>

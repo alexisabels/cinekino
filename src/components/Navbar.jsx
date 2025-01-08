@@ -5,14 +5,13 @@ import { useAuth } from "../services/AuthProvider";
 
 const Navbar = () => {
   const { user } = useAuth();
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen); 
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <nav className="bg-gray-800 p-4 sticky top-0 z-10 w-full">
       <div className="container mx-auto flex justify-between items-center h-16">
-      
         <div className="flex space-x-10">
           <a
             href="/"
@@ -43,7 +42,9 @@ const Navbar = () => {
               >
                 Mi Perfil
               </a>
-              <p>Bienvenido, {user.displayName}</p>
+              <p className="text-white">
+                Bienvenido, {user.username || "Usuario"}
+              </p>
               <LogoutButton />
             </div>
           ) : (
@@ -51,7 +52,6 @@ const Navbar = () => {
           )}
         </div>
 
-     
         <div className="md:hidden flex items-center">
           <button onClick={toggleMenu} className="text-white">
             <svg
@@ -100,7 +100,9 @@ const Navbar = () => {
               >
                 Mi Perfil
               </a>
-              <p className="text-white">Welcome, {user.displayName}</p>
+              <p className="text-white">
+                Bienvenido, {user.username || "Usuario"}
+              </p>
               <LogoutButton />
             </div>
           ) : (

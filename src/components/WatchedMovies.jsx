@@ -5,8 +5,7 @@ import { useAuth } from "../services/AuthProvider";
 import MovieList from "./MovieList";
 import Spinner from "./Spinner";
 
-const WatchedMovies = () => {
-  const { user } = useAuth();
+const WatchedMovies = ({ user }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
