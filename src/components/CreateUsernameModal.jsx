@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  getDocs,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useAuth } from "../services/AuthProvider";
 
@@ -11,6 +18,26 @@ const CreateUsernameModal = () => {
   const handleSave = async () => {
     if (username.trim() === "") {
       setError("El nombre de usuario no puede estar vacío.");
+      return;
+    }
+
+    // Validar caracteres especiales
+    const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+    if (!alphanumericRegex.test(username)) {
+      setError(
+        "El nombre de usuario solo puede contener caracteres alfanuméricos."
+      );
+      return;
+    }
+
+    // Verificar si el nombre de usuario ya existe
+    const q = query(
+      collection(db, "users"),
+      where("username", "==", username.trim())
+    );
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      setError("El nombre de usuario ya está en uso.");
       return;
     }
 
@@ -37,13 +64,13 @@ const CreateUsernameModal = () => {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="Ingresa un nombre"
+          placeholder="Ingresa un username"
           className="w-full border text-gray-900 border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring focus:ring-blue-500"
         />
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
         <button
           onClick={handleSave}
-          className="transition duration-200 w-full inline-flex select-none items-center justify-center text-white bg-gray-900 border border-gray-300 focus:outline-none hover:bg-gray-800 focus:ring-4 focus:ring-gray-800 font-medium rounded-lg text-sm px-5 py-2.5"
+          className="transition duration-200 w-full inline-flex select-none items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
         >
           Guardar
         </button>

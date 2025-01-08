@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { db } from "../../firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { useAuth } from "../services/AuthProvider";
 import MovieList from "./MovieList";
 import Spinner from "./Spinner";
 

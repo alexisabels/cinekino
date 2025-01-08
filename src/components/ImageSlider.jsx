@@ -1,11 +1,11 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation'; // Importa los estilos de navegación
-import { Navigation } from 'swiper/modules';
-
+/* eslint-disable react/prop-types */
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation"; // Importa los estilos de navegación
+import { Navigation } from "swiper/modules";
 
 const ImageSlider = ({ images }) => {
-  return  (
+  return (
     <div className="max-w-screen-xl lg:max-w-7xl mt-10 mx-auto px-4">
       <h2 className="text-4xl text-slate-200 font-extrabold tracking-tight md:text-5xl lg:text-4xl mb-6">
         Imágenes
