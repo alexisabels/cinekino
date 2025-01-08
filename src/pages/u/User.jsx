@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import WatchedMovies from "../../components/WatchedMovies";
 import { useEffect, useState } from "react";
 import { db } from "../../../firebaseConfig";
-import { query } from "firebase/database";
-import { collection, getDocs, where } from "firebase/firestore";
+import { collection, getDocs, where, query } from "firebase/firestore";
+import Spinner from "../../components/Spinner";
 
-const Profile = () => {
+const User = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const Profile = () => {
     const fetchUser = async () => {
       const q = query(
         collection(db, "users"),
-        where("username", "==", username)
+        where("username", "==", username.trim())
       );
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
@@ -22,18 +22,31 @@ const Profile = () => {
         setUser(userData);
       } else {
         setUser(null);
+        console.log("No se encontró el usuario");
       }
       setLoading(false);
     };
     fetchUser();
   }, [username]);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-boldp-4">Perfil de {username}</h1>
-      <WatchedMovies user={user} />
+      <div className="bg-gray-800 p-6 rounded-lg shadow-md text-white">
+        <h1 className="text-3xl font-bold mb-4">Perfil de {username}</h1>
+        {user ? (
+          <>
+            <WatchedMovies user={user} />
+          </>
+        ) : (
+          <p>No se encontró el usuario</p>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Profile;
+export default User;

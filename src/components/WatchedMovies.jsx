@@ -12,10 +12,10 @@ const WatchedMovies = ({ user }) => {
   useEffect(() => {
     const fetchWatchedMovies = async () => {
       try {
-        if (user) {
+        if (user && user.id) {
           const q = query(
             collection(db, "watchedMovies"),
-            where("userId", "==", user.uid)
+            where("userId", "==", user.id)
           );
           const querySnapshot = await getDocs(q);
           const moviesList = querySnapshot.docs.map((doc) => ({
@@ -23,6 +23,8 @@ const WatchedMovies = ({ user }) => {
             ...doc.data(),
           }));
           setMovies(moviesList);
+        } else {
+          console.error("User is not defined or does not have an ID");
         }
       } catch (error) {
         console.error("Error al obtener películas vistas:", error);

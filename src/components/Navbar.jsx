@@ -37,7 +37,7 @@ const Navbar = () => {
           {user ? (
             <div className="flex items-center gap-3">
               <a
-                href="/profile"
+                href={`/u/${user.username}`}
                 className="text-white text-lg font-semibold hover:text-gray-400"
               >
                 Mi Perfil
@@ -95,8 +95,8 @@ const Navbar = () => {
           {user ? (
             <div className="flex flex-col gap-3">
               <a
-                href="/profile"
-                className="block py-2 px-4 text-lg font-semibold hover:text-gray-400"
+                href={`/u/${user.username}`}
+                className="text-white text-lg font-semibold hover:text-gray-400"
               >
                 Mi Perfil
               </a>
