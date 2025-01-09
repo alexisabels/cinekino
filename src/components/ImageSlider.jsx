@@ -6,7 +6,7 @@ import { Navigation } from "swiper/modules";
 
 const ImageSlider = ({ images }) => {
   return (
-    <div className="max-w-screen-xl lg:max-w-7xl mt-10 mx-auto px-4">
+    <div className="max-w-screen-xl lg:max-w-7xl mt-10 mx-auto px-4 w-full">
       <h2 className="text-4xl text-slate-200 font-extrabold tracking-tight md:text-5xl lg:text-4xl mb-6">
         Imágenes
       </h2>
@@ -22,15 +22,15 @@ const ImageSlider = ({ images }) => {
           },
           480: {
             slidesPerView: 2,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
           768: {
             slidesPerView: 3,
-            spaceBetween: 30,
+            spaceBetween: 10,
           },
           1024: {
             slidesPerView: 4,
-            spaceBetween: 40,
+            spaceBetween: 10,
           },
         }}
         className="w-full"
