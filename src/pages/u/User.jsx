@@ -1,18 +1,14 @@
 import { useParams } from "react-router-dom";
-import WatchedMovies from "../../components/WatchedMovies";
-import WatchListMovies from "../../components/WatchListMovies";
 import { useEffect, useState } from "react";
 import { db } from "../../../firebaseConfig";
 import { collection, getDocs, where, query } from "firebase/firestore";
 import Spinner from "../../components/Spinner";
-import ProfileMenuMovies from "../../components/ProfileMenuMovies";
+import Lists from "../../components/Lists";
 
 const User = () => {
   const { username } = useParams();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedMenu, setSelectedMenu] = useState("watched");
-
   useEffect(() => {
     const fetchUser = async () => {
       const q = query(
@@ -31,6 +27,7 @@ const User = () => {
     };
     fetchUser();
   }, [username]);
+  console.log(user);
 
   if (loading) {
     return <Spinner />;
@@ -42,33 +39,7 @@ const User = () => {
         <h1 className="text-3xl font-bold mb-4">Perfil de {username}</h1>
       ) : null}
 
-      <ProfileMenuMovies
-        selectedMenu={selectedMenu}
-        setSelectedMenu={setSelectedMenu}
-      />
-      <div className="bg-gray-800 p-6 rounded-lg shadow-md text-white">
-        {user ? (
-          <>
-            {(() => {
-              switch (selectedMenu) {
-                case "watched":
-                  return <WatchedMovies user={user} />;
-                case "watchlist":
-                  return <WatchListMovies user={user} />;
-                case "favoritas":
-                  return <p>Esta funcionalidad se añadirá próximamente</p>;
-                default:
-                  return null;
-              }
-            })()}
-          </>
-        ) : (
-          <>
-            <h1 className="text-3xl font-bold mb-4">Esta cuenta no existe</h1>
-            <p>Intenta hacer otra búsqueda.</p>
-          </>
-        )}
-      </div>
+      <Lists user={user} />
     </div>
   );
 };

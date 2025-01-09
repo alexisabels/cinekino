@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 import { useAuth } from "../services/AuthProvider";
@@ -13,35 +14,35 @@ const Navbar = () => {
     <nav className="bg-gray-800 p-4 sticky top-0 z-50 w-full">
       <div className="container mx-auto flex justify-between items-center h-16">
         <div className="flex space-x-10">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="text-white text-lg font-semibold hover:text-gray-400"
           >
             Inicio
-          </a>
-          {/* <a
-            href="/movies"
-            className="text-white text-lg font-semibold hover:text-gray-400"
-          >
-            Películas
-          </a> */}
-          <a
-            href="/people"
+          </Link>
+          <Link
+            to="/people"
             className="text-white text-lg font-semibold hover:text-gray-400"
           >
             Personas
-          </a>
+          </Link>
+          <Link
+            to="/lists"
+            className="text-white text-lg font-semibold hover:text-gray-400"
+          >
+            Listas
+          </Link>
         </div>
 
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-3">
-              <a
-                href={`/u/${user.username}`}
+              <Link
+                to={`/u/${user.username}`}
                 className="text-white text-lg font-semibold hover:text-gray-400"
               >
                 Mi Perfil
-              </a>
+              </Link>
               <p className="text-white">
                 Bienvenido, {user.username || "Usuario"}
               </p>
@@ -53,7 +54,13 @@ const Navbar = () => {
         </div>
 
         <div className="md:hidden flex items-center">
-          <button onClick={toggleMenu} className="text-white">
+          <button
+            onClick={toggleMenu}
+            className={`text-white transform transition-transform duration-300 ${
+              isOpen ? "rotate-90" : "rotate-0"
+            }`}
+            aria-label="Toggle menu"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -73,34 +80,16 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-gray-800 text-white p-4">
-          <a
-            href="/"
-            className="block py-2 px-4 text-lg font-semibold hover:text-gray-400"
-          >
-            Inicio
-          </a>
-          {/* <a
-            href="/movies"
-            className="block py-2 px-4 text-lg font-semibold hover:text-gray-400"
-          >
-            Películas
-          </a> */}
-          <a
-            href="/people"
-            className="block py-2 px-4 text-lg font-semibold hover:text-gray-400"
-          >
-            Personas
-          </a>
+        <div className="md:hidden bg-gray-700 text-white -mx-4 -mb-4 p-4">
           {user ? (
             <div className="flex flex-col gap-3">
-              <a
-                href={`/u/${user.username}`}
-                className="text-white text-lg font-semibold hover:text-gray-400"
+              <Link
+                to={`/u/${user.username}`}
+                className="block py-2 px-4 text-lg font-semibold hover:text-gray-400"
               >
                 Mi Perfil
-              </a>
-              <p className="text-white">
+              </Link>
+              <p className="text-white px-4 text-md">
                 Bienvenido, {user.username || "Usuario"}
               </p>
               <LogoutButton />
