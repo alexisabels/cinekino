@@ -20,6 +20,10 @@ const Rutas = () => {
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/u/:username" element={<User />} />
+            <Route
+              path="/people"
+              element={<h1>Página en construcción...</h1>}
+            />
           </Routes>
         </div>
       </Router>
