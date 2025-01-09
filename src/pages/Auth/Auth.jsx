@@ -1,20 +1,33 @@
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from "../../../firebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import GoogleIcon from "../../assets/GoogleIcon";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../services/AuthProvider";
 
 const Auth = () => {
-  // const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  const { setRequiresUsername } = useAuth();
 
   const handleLoginWithGoogle = async () => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
 
-      const userDoc = doc(db, "users", user.uid);
-      await setDoc(userDoc, { id: user.uid }, { merge: true });
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, { id: user.uid });
+        setRequiresUsername(true);
+      } else {
+        const userData = userDoc.data();
+        if (userData.username) {
+          setRequiresUsername(false);
+        } else {
+          setRequiresUsername(true);
+        }
+      }
 
       navigate("/");
     } catch (error) {
