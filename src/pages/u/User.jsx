@@ -36,13 +36,17 @@ const User = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="bg-gray-800 p-6 rounded-lg shadow-md text-white">
-        <h1 className="text-3xl font-bold mb-4">Perfil de {username}</h1>
         {user ? (
           <>
+            <h1 className="text-3xl font-bold mb-4">Perfil de {username}</h1>
+
             <WatchedMovies user={user} />
           </>
         ) : (
-          <p>No se encontró el usuario</p>
+          <>
+            <h1 className="text-3xl font-bold mb-4">Esta cuenta no existe</h1>
+            <p>Intenta hacer otra búsqueda.</p>
+          </>
         )}
       </div>
     </div>
