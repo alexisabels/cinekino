@@ -17,6 +17,7 @@ import Cast from "./Cast";
 import ImageSlider from "../../../components/ImageSlider";
 import Spinner from "../../../components/Spinner";
 import { FaCheck, FaEye, FaEyeSlash, FaPlus } from "react-icons/fa6";
+import MovieMenuDetails from "../../../components/MovieMenuDetails";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -24,6 +25,8 @@ const MovieDetails = () => {
   const [isWatched, setIsWatched] = useState(false);
   const [movieMedia, setMovieMedia] = useState(null);
   const [isOnWatchList, setOnWatchList] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState("reparto");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -124,7 +127,7 @@ const MovieDetails = () => {
         </div>
       )}
       <div className="relative z-10 flex flex-col items-center px-4 py-8 bg-black bg-opacity-70">
-        <div className="flex flex-col md:flex-row items-center md:items-start md:justify-center gap-8">
+        <div className=" mb-10 flex flex-col md:flex-row items-center md:items-start md:justify-center gap-8">
           <div className="flex-shrink-0 max-w-xs md:max-w-sm transform hover:scale-105 transition duration-300">
             <img
               className="w-full rounded-lg shadow-xl"
@@ -162,7 +165,7 @@ const MovieDetails = () => {
                   onClick={
                     isWatched ? handleMarkAsUnWatched : handleMarkAsWatched
                   }
-                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-md ${
+                  className={`flex items-center justify-center gap-2 px-6 py-2 rounded-md ${
                     isWatched
                       ? "bg-gray-500 hover:bg-gray-600"
                       : "bg-blue-600 hover:bg-blue-700"
@@ -177,7 +180,7 @@ const MovieDetails = () => {
                       ? handleMarkAsNoWatchList
                       : handleMarkAsWatchList
                   }
-                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-md ${
+                  className={`flex items-center justify-center gap-2 px-6 py-2 rounded-md ${
                     isOnWatchList
                       ? "bg-cyan-500 hover:bg-cyan-600"
                       : "bg-green-700 hover:bg-green-900"
@@ -196,8 +199,24 @@ const MovieDetails = () => {
             )}
           </div>
         </div>
-        <Cast cast={movie.credits?.cast || []} />
-        <ImageSlider images={movieMedia?.backdrops || []} />
+        <MovieMenuDetails
+          selectedMenu={selectedMenu}
+          setSelectedMenu={setSelectedMenu}
+        />
+        <>
+          {(() => {
+            switch (selectedMenu) {
+              case "reparto":
+                return <Cast cast={movie.credits?.cast || []} />;
+              case "imagenes":
+                return <ImageSlider images={movieMedia?.backdrops || []} />;
+              case "reseñas":
+                return <p>Esta funcionalidad se añadirá próximamente</p>;
+              default:
+                return null;
+            }
+          })()}
+        </>
       </div>
     </div>
   );

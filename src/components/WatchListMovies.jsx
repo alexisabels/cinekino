@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import MovieList from "./MovieList";
-import Spinner from "./Spinner";
 import SmallSpinner from "./SmallSpinner";
 
 const WatchListMovies = ({ user }) => {

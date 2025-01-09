@@ -49,11 +49,18 @@ const User = () => {
       <div className="bg-gray-800 p-6 rounded-lg shadow-md text-white">
         {user ? (
           <>
-            {selectedMenu === "watched" ? (
-              <WatchedMovies user={user} />
-            ) : (
-              <WatchListMovies user={user} />
-            )}
+            {(() => {
+              switch (selectedMenu) {
+                case "watched":
+                  return <WatchedMovies user={user} />;
+                case "watchlist":
+                  return <WatchListMovies user={user} />;
+                case "favoritas":
+                  return <p>Esta funcionalidad se añadirá próximamente</p>;
+                default:
+                  return null;
+              }
+            })()}
           </>
         ) : (
           <>

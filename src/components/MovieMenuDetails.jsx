@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const ProfileMenuMovies = ({ selectedMenu, setSelectedMenu }) => {
+const MovieMenuDetails = ({ selectedMenu, setSelectedMenu }) => {
   return (
     <div className="flex justify-center items-center z-50">
       <div className="w-full">
@@ -10,35 +10,35 @@ const ProfileMenuMovies = ({ selectedMenu, setSelectedMenu }) => {
           <button
             type="button"
             className={`px-5 py-1.5 text-xs font-medium rounded-lg ${
-              selectedMenu === "watched"
+              selectedMenu === "reparto"
                 ? "text-white bg-gray-900 dark:bg-gray-300 dark:text-gray-900"
                 : "text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
             }`}
-            onClick={() => setSelectedMenu("watched")}
+            onClick={() => setSelectedMenu("reparto")}
           >
-            Watched
+            Reparto
           </button>
           <button
             type="button"
             className={`px-5 py-1.5 text-xs font-medium rounded-lg ${
-              selectedMenu === "watchlist"
+              selectedMenu === "imagenes"
                 ? "text-white bg-gray-900 dark:bg-gray-300 dark:text-gray-900"
                 : "text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
             }`}
-            onClick={() => setSelectedMenu("watchlist")}
+            onClick={() => setSelectedMenu("imagenes")}
           >
-            Watchlist
+            Imágenes
           </button>
           <button
             type="button"
             className={`px-5 py-1.5 text-xs font-medium rounded-lg ${
-              selectedMenu === "favorites"
+              selectedMenu === "reseñas"
                 ? "text-white bg-gray-900 dark:bg-gray-300 dark:text-gray-900"
                 : "text-gray-900 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
             }`}
-            onClick={() => setSelectedMenu("favoritas")}
+            onClick={() => setSelectedMenu("reseñas")}
           >
-            Favoritas
+            Reseñas
           </button>
         </div>
       </div>
@@ -46,4 +46,4 @@ const ProfileMenuMovies = ({ selectedMenu, setSelectedMenu }) => {
   );
 };
 
-export default ProfileMenuMovies;
+export default MovieMenuDetails;
