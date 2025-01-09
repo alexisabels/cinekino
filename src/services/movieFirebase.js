@@ -1,5 +1,5 @@
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
-import {db } from "../../firebaseConfig";
+import { db } from "../../firebaseConfig";
 
 export const checkIfMovieWatched = async (userId, movieId) => {
   try {
@@ -34,8 +34,46 @@ export const markMovieAsUnWatched = async (userId, movieId) => {
   try {
     const docRef = doc(db, "watchedMovies", `${userId}_${movieId}`);
     await deleteDoc(docRef);
-    } catch (error) {
+  } catch (error) {
     console.error("Error al marcar la película como vista:", error);
+    throw error;
+  }
+};
+export const checkIfMovieOnWatchlist = async (userId, movieId) => {
+  try {
+    const docRef = doc(db, "watchList", `${userId}_${movieId}`);
+    const docSnap = await getDoc(docRef);
+
+    return docSnap.exists();
+  } catch (error) {
+    console.error(
+      "Error al verificar si la película está marcada como watchList:",
+      error
+    );
+    throw error;
+  }
+};
+export const markMovieAsWatchList = async (userId, movieId, movieData) => {
+  try {
+    const docRef = doc(db, "watchList", `${userId}_${movieId}`);
+    await setDoc(docRef, {
+      userId,
+      movieId,
+      ...movieData,
+      watchedAt: new Date(),
+    });
+  } catch (error) {
+    console.error("Error al marcar la película como watchList:", error);
+    throw error;
+  }
+};
+
+export const markMovieAsNoWatchList = async (userId, movieId) => {
+  try {
+    const docRef = doc(db, "watchList", `${userId}_${movieId}`);
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.error("Error al marcar la película como NO watchList:", error);
     throw error;
   }
 };

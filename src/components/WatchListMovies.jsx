@@ -6,16 +6,16 @@ import MovieList from "./MovieList";
 import Spinner from "./Spinner";
 import SmallSpinner from "./SmallSpinner";
 
-const WatchedMovies = ({ user }) => {
+const WatchListMovies = ({ user }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchWatchedMovies = async () => {
+    const fetchWatchListMovies = async () => {
       try {
         if (user && user.id) {
           const q = query(
-            collection(db, "watchedMovies"),
+            collection(db, "watchList"),
             where("userId", "==", user.id)
           );
           const querySnapshot = await getDocs(q);
@@ -28,25 +28,30 @@ const WatchedMovies = ({ user }) => {
           console.error("User is not defined or does not have an ID");
         }
       } catch (error) {
-        console.error("Error al obtener películas vistas:", error);
+        console.error("Error al obtener la watchList:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchWatchedMovies();
+    fetchWatchListMovies();
   }, [user]);
 
   if (loading) {
-    return <SmallSpinner />;
+    return (
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Watchlist</h2>
+        <SmallSpinner />
+      </div>
+    );
   }
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Películas Vistas</h2>
+      <h2 className="text-2xl font-bold mb-4">Watchlist</h2>
       <MovieList movies={movies} />
     </div>
   );
 };
 
-export default WatchedMovies;
+export default WatchListMovies;

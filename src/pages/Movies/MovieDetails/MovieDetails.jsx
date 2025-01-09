@@ -6,20 +6,24 @@ import {
   fetchMovieMedia,
 } from "../../../services/tmdbService";
 import {
+  checkIfMovieOnWatchlist,
   checkIfMovieWatched,
+  markMovieAsNoWatchList,
   markMovieAsUnWatched,
   markMovieAsWatched,
+  markMovieAsWatchList,
 } from "../../../services/movieFirebase";
 import Cast from "./Cast";
 import ImageSlider from "../../../components/ImageSlider";
 import Spinner from "../../../components/Spinner";
+import { FaCheck, FaEye, FaEyeSlash, FaPlus } from "react-icons/fa6";
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
   const [isWatched, setIsWatched] = useState(false);
   const [movieMedia, setMovieMedia] = useState(null);
-
+  const [isOnWatchList, setOnWatchList] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,6 +35,8 @@ const MovieDetails = () => {
         if (user) {
           const watched = await checkIfMovieWatched(user.uid, id);
           setIsWatched(watched);
+          const watchList = await checkIfMovieOnWatchlist(user.uid, id);
+          setOnWatchList(watchList);
         }
       } catch (error) {
         console.error("Error al cargar los datos:", error);
@@ -66,7 +72,31 @@ const MovieDetails = () => {
       }
     }
   };
-
+  const handleMarkAsWatchList = async () => {
+    const user = auth.currentUser;
+    if (user && movie.title && movie.poster_path) {
+      try {
+        await markMovieAsWatchList(user.uid, id, {
+          title: movie.title,
+          poster_path: movie.poster_path,
+        });
+        setOnWatchList(true);
+      } catch (error) {
+        console.error("Error al marcar la película como watchlist:", error);
+      }
+    }
+  };
+  const handleMarkAsNoWatchList = async () => {
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        await markMovieAsNoWatchList(user.uid, id);
+        setOnWatchList(false);
+      } catch (error) {
+        console.error("Error al marcar la película como no watchlist:", error);
+      }
+    }
+  };
   if (!movie || Object.keys(movie).length === 0) return <Spinner />;
 
   const releaseDate = movie.release_date || "Desconocido";
@@ -127,18 +157,36 @@ const MovieDetails = () => {
               {movie.overview || "Sin descripción disponible."}
             </p>
             {auth.currentUser ? (
-              <button
-                onClick={
-                  isWatched ? handleMarkAsUnWatched : handleMarkAsWatched
-                }
-                className={`mt-4 px-6 py-3 rounded-md ${
-                  isWatched
-                    ? "bg-gray-500 hover:bg-gray-600"
-                    : "bg-blue-500 hover:bg-blue-600"
-                } text-white text-lg transition duration-300`}
-              >
-                {isWatched ? "Vista" : "Marcar como vista"}
-              </button>
+              <div className="flex flex-col md:flex-row gap-4 mt-4">
+                <button
+                  onClick={
+                    isWatched ? handleMarkAsUnWatched : handleMarkAsWatched
+                  }
+                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-md ${
+                    isWatched
+                      ? "bg-gray-500 hover:bg-gray-600"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  } text-white text-lg transition duration-300`}
+                >
+                  {isWatched ? <FaEyeSlash /> : <FaEye />}
+                  {isWatched ? "Vista" : "Marcar como vista"}
+                </button>
+                <button
+                  onClick={
+                    isOnWatchList
+                      ? handleMarkAsNoWatchList
+                      : handleMarkAsWatchList
+                  }
+                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-md ${
+                    isOnWatchList
+                      ? "bg-cyan-500 hover:bg-cyan-600"
+                      : "bg-green-700 hover:bg-green-900"
+                  } text-white text-lg transition duration-300`}
+                >
+                  {isOnWatchList ? <FaCheck /> : <FaPlus />}
+                  {isOnWatchList ? "En tu Watchlist" : "Añadir a watchlist"}
+                </button>
+              </div>
             ) : (
               <button
                 className={`mt-4 px-6 py-3 rounded-md bg-gray-500 hover:bg-gray-600 text-white text-lg transition duration-300`}
