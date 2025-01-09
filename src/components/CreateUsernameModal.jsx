@@ -11,7 +11,7 @@ import { db } from "../../firebaseConfig";
 import { useAuth } from "../services/AuthProvider";
 
 const CreateUsernameModal = () => {
-  const { user } = useAuth();
+  const { user, setRequiresUsername } = useAuth();
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
 
@@ -45,6 +45,7 @@ const CreateUsernameModal = () => {
       await updateDoc(doc(db, "users", user.uid), {
         username: username.trim(),
       });
+      setRequiresUsername(false);
       window.location.reload();
     } catch (err) {
       setError("Hubo un error al guardar el username.");
@@ -64,7 +65,7 @@ const CreateUsernameModal = () => {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="Ingresa un username"
+          placeholder="Ingresa un nombre de usuario"
           className="w-full border text-gray-900 border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring focus:ring-blue-500"
         />
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}

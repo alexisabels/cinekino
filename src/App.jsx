@@ -1,10 +1,14 @@
 import Rutas from "../routes";
 import CreateUsernameModal from "./components/CreateUsernameModal";
 import { useAuth } from "./services/AuthProvider";
-import { logout } from "./services/logout";
+import Spinner from "./components/Spinner";
 
 function App() {
-  const { requiresUsername } = useAuth();
+  const { requiresUsername, loading } = useAuth();
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="relative min-h-screen">
