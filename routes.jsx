@@ -13,7 +13,7 @@ const Rutas = () => {
     <AuthProvider>
       <Router>
         <Navbar />
-        <div className="pt-16">
+        <div className="mt-16">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movies" element={<Movies />} />

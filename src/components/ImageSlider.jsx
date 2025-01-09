@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation"; // Importa los estilos de navegación
+import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
 const ImageSlider = ({ images }) => {
@@ -12,24 +12,24 @@ const ImageSlider = ({ images }) => {
       </h2>
 
       <Swiper
-        modules={[Navigation]} // Agrega el módulo de navegación
-        spaceBetween={10} // Espacio entre las imágenes
-        navigation // Activa los controles de navegación
+        modules={[Navigation]}
+        spaceBetween={10}
+        navigation
         breakpoints={{
           320: {
-            slidesPerView: 1, // En pantallas pequeñas, muestra 1 imagen
+            slidesPerView: 1,
             spaceBetween: 10,
           },
           480: {
-            slidesPerView: 2, // En pantallas medianas, muestra 2 imágenes
+            slidesPerView: 2,
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 3, // En pantallas grandes, muestra 3 imágenes
+            slidesPerView: 3,
             spaceBetween: 30,
           },
           1024: {
-            slidesPerView: 4, // En pantallas muy grandes, muestra 4 imágenes
+            slidesPerView: 4,
             spaceBetween: 40,
           },
         }}
