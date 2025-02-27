@@ -160,42 +160,63 @@ const MovieDetails = () => {
               {movie.overview || "Sin descripción disponible."}
             </p>
             {auth.currentUser ? (
-              <div className="flex flex-col md:flex-row gap-4 mt-4">
+              <div className="flex flex-wrap gap-4 mt-6">
                 <button
                   onClick={
                     isWatched ? handleMarkAsUnWatched : handleMarkAsWatched
                   }
-                  className={`flex items-center justify-center gap-2 px-6 py-2 rounded-md ${
+                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium text-base transition-all duration-300 shadow-lg ${
                     isWatched
-                      ? "bg-gray-500 hover:bg-gray-600"
-                      : "bg-blue-600 hover:bg-blue-700"
-                  } text-white text-lg transition duration-300`}
+                      ? "bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white ring-1 ring-gray-500"
+                      : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transform hover:scale-[1.03] hover:shadow-blue-500/20"
+                  }`}
                 >
-                  {isWatched ? <FaEyeSlash /> : <FaEye />}
-                  {isWatched ? "Vista" : "Marcar como vista"}
+                  <span className="text-xl">
+                    {isWatched ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                  <span>{isWatched ? "Vista" : "Marcar como vista"}</span>
                 </button>
+
                 <button
                   onClick={
                     isOnWatchList
                       ? handleMarkAsNoWatchList
                       : handleMarkAsWatchList
                   }
-                  className={`flex items-center justify-center gap-2 px-6 py-2 rounded-md ${
+                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium text-base transition-all duration-300 shadow-lg ${
                     isOnWatchList
-                      ? "bg-cyan-500 hover:bg-cyan-600"
-                      : "bg-green-700 hover:bg-green-900"
-                  } text-white text-lg transition duration-300`}
+                      ? "bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white ring-1 ring-cyan-400"
+                      : "bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white transform hover:scale-[1.03] hover:shadow-green-500/20"
+                  }`}
                 >
-                  {isOnWatchList ? <FaCheck /> : <FaPlus />}
-                  {isOnWatchList ? "En tu Watchlist" : "Añadir a watchlist"}
+                  <span className="text-xl">
+                    {isOnWatchList ? <FaCheck /> : <FaPlus />}
+                  </span>
+                  <span>
+                    {isOnWatchList ? "En tu Watchlist" : "Añadir a Watchlist"}
+                  </span>
                 </button>
               </div>
             ) : (
-              <button
-                className={`mt-4 px-6 py-3 rounded-md bg-gray-500 hover:bg-gray-600 text-white text-lg transition duration-300`}
-              >
-                <Link to="/auth">Inicia sesión para marcarla como vista</Link>
-              </button>
+              <Link to="/auth">
+                <button className="mt-6 px-7 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium text-base transition-all duration-300 shadow-lg transform hover:scale-[1.03] flex items-center gap-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                    />
+                  </svg>
+                  Inicia sesión para marcar como vista o añadir a Watchlist
+                </button>
+              </Link>
             )}
           </div>
         </div>
